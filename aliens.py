@@ -9,8 +9,8 @@ class Alien(Sprite):
         self.ai_settings = ai_settings
         # load the image
         self.image = pygame.image.load(
-            'C:/Coding/zx/py/alien_invasion/spaceship.bmp')
-        self.image = pygame.transform.scale(self.image, (60, 40))
+            'C:/Coding/zx/py/alien_invasion/images/ufo.bmp')
+        self.image = pygame.transform.scale(self.image, (120, 90))
         self.image = pygame.transform.rotate(self.image, 180)
         self.rect = self.image.get_rect()
 

@@ -1,15 +1,17 @@
 import pygame
+from pygame.sprite import Sprite
 
 
-class Ship():
+class Ship(Sprite):
     def __init__(self, ai_settings, screen):
         # initializing the ship
+        super(Ship, self).__init__()
         self.screen = screen
         self.ai_settings = ai_settings
         # loading the ship
         self.image = pygame.image.load(
-            "C:/Coding/aw5.pt/py/alien_invasion/spaceship.bmp")
-        self.image = pygame.transform.scale(self.image, (120, 80))
+            "C:/Coding/zx/py/alien_invasion/images/spaceship.bmp")
+        self.image = pygame.transform.scale(self.image, (100, 60))
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
 

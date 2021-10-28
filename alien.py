@@ -4,6 +4,8 @@ from settings import Settings
 from ship import Ship
 from aliens import Alien
 from game_stats import GameStats
+from button import Button
+from scoreboard import Scoreboard
 import game_functions as gf
 
 
@@ -11,12 +13,16 @@ def run_game():
     # initializing game and creating a screen object
     pygame.init()
     ai_settings = Settings()
-
-    stats = GameStats(ai_settings)
-
     screen = pygame.display.set_mode(
         (ai_settings.screen_width, ai_settings.screen_height))
     pygame.display.set_caption("Alien Invasion")
+
+    # making the scoreboard
+    stats = GameStats(ai_settings)
+    sb = Scoreboard(ai_settings, screen, stats)
+
+    # make the play button
+    play_button = Button(ai_settings, screen, "Play")
 
     # making the ship
     ship = Ship(ai_settings, screen)
@@ -31,12 +37,16 @@ def run_game():
     # Starting the main loop for the game
     while True:
         # game_funcitons.py
-        gf.check_events(ai_settings, screen, ship, bullets)
+        gf.check_events(ai_settings, screen, stats, sb,
+                        play_button, ship, aliens, bullets)
         if stats.game_active:
             ship.update()
-            gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
-            gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
-        gf.update_screen(ai_settings, screen, ship, aliens, bullets)
+            gf.update_bullets(ai_settings, screen, stats,
+                              sb, ship, aliens, bullets)
+            gf.update_aliens(ai_settings, screen, stats,
+                             sb, ship, aliens, bullets)
+        gf.update_screen(ai_settings, screen, stats, sb, ship,
+                         aliens, bullets, play_button)
 
 
 if __name__ == "__main__":
